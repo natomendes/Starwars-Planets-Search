@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import skyBg from './Images/darkSky.jpg';
 
 export default createGlobalStyle`
   *, *::after, *::before {
@@ -18,6 +19,8 @@ export default createGlobalStyle`
   font-size: 1.6rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: url(${skyBg}) repeat-y;
+  background-size: 100%;
 }
 
   code {
