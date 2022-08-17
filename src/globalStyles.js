@@ -19,8 +19,8 @@ export default createGlobalStyle`
   font-size: 1.6rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: url(${skyBg}) repeat-y;
-  background-size: 100%;
+  background: url(${skyBg}) repeat;
+  background-size: 600px;
 }
 
   code {
