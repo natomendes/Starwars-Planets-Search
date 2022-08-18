@@ -3,12 +3,26 @@ import AppContext from '../../Context';
 import * as s from './styled';
 
 const Table = () => {
-  const { planets, filterByName } = useContext(AppContext);
+  const {
+    planets,
+    filterByName,
+    filterByNumericValues,
+  } = useContext(AppContext);
 
-  const filteredPlanets = () => planets
+  const filteredPlanets = () => filterByNumericValues
+    .reduce((acc, { column, comparison, value }) => {
+      if (comparison === 'maior que') {
+        return acc.filter((planet) => Number(planet[column]) > Number(value));
+      }
+      if (comparison === 'menor que') {
+        return acc.filter((planet) => Number(planet[column]) < Number(value));
+      }
+      return acc.filter((planet) => Number(planet[column]) === Number(value));
+    }, planets)
     .filter(({ name }) => name
       .toLowerCase()
       .includes(filterByName.toLowerCase()));
+
   return (
     <s.Wrapper>
       <s.PlanetsTable>

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import * as S from './styled';
 import logo from '../../Images/logoStarsWars3.png';
 import logoPlanet from '../../Images/planetsLogo.png';
@@ -10,7 +10,50 @@ const Header = () => {
     columnOptions,
     filterByName,
     setFilterByName,
+    filterByNumericValues,
+    setfilterByNumericValues,
   } = useContext(AppContext);
+
+  const getColumns = useMemo(() => columnOptions
+    .filter((option) => filterByNumericValues.every(({ column }) => column !== option)),
+  [columnOptions, filterByNumericValues]);
+
+  const [{
+    column,
+    comparison,
+    valueInput,
+  }, setFilterForm] = useState({
+    column: getColumns[0],
+    comparison: 'maior que',
+    valueInput: 0,
+  });
+
+  const handleFilterForm = ({ target: { name, value } }) => {
+    setFilterForm((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const applyFilter = () => {
+    setfilterByNumericValues((prevState) => ([
+      ...prevState,
+      {
+        column,
+        comparison,
+        value: valueInput,
+      },
+    ]));
+  };
+
+  useEffect(() => {
+    setFilterForm((prevState) => ({
+      ...prevState,
+      column: getColumns[0],
+      comparison: 'maior que',
+      valueInput: 0,
+    }));
+  }, [filterByNumericValues, getColumns]);
 
   return (
     <>
@@ -34,9 +77,14 @@ const Header = () => {
       <S.ActiveFilters />
       <S.FilterBar>
         <S.FormLimiter>
-          <S.Select>
+          <S.Select
+            data-testid="column-filter"
+            value={ column }
+            name="column"
+            onChange={ handleFilterForm }
+          >
             {
-              columnOptions
+              getColumns
                 .map((value) => (
                   <S.Option
                     key={ value }
@@ -48,7 +96,12 @@ const Header = () => {
             }
           </S.Select>
 
-          <S.Select>
+          <S.Select
+            data-testid="comparison-filter"
+            value={ comparison }
+            name="comparison"
+            onChange={ handleFilterForm }
+          >
             <S.Option
               value="maior que"
             >
@@ -69,9 +122,15 @@ const Header = () => {
           <S.Input
             type="number"
             placeholder="Type a Value"
+            value={ valueInput }
+            name="valueInput"
+            onChange={ handleFilterForm }
+            data-testid="value-filter"
           />
           <S.Button
             type="button"
+            onClick={ applyFilter }
+            data-testid="button-filter"
           >
             Apply Filter
           </S.Button>
