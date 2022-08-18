@@ -19,7 +19,7 @@ export default createGlobalStyle`
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #111;
+    background: #222;
   }
 
   html {
