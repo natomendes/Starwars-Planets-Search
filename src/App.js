@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './Components/Header';
+import Table from './Components/Table';
 import Provider from './Context/Provider';
 import GlobalStyles from './globalStyles';
 
@@ -8,6 +9,7 @@ function App() {
     <Provider>
       <GlobalStyles />
       <Header />
+      <Table />
     </Provider>
   );
 }

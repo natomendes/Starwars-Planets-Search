@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AppContext from '.';
 
 const Provider = ({ children }) => {
@@ -17,6 +17,19 @@ const Provider = ({ children }) => {
     setPlanets,
     columnOptions,
   };
+
+  useEffect(() => {
+    const fetchPlanets = async () => {
+      const response = await fetch('https://swapi-trybe.herokuapp.com/api/planets/');
+      const data = await response.json();
+      const planetsResults = data.results;
+      planetsResults.forEach((planet) => {
+        delete planet.residents;
+      });
+      setPlanets(planetsResults);
+    };
+    fetchPlanets();
+  }, []);
   return (
     <AppContext.Provider value={ contextValue }>
       { children }
