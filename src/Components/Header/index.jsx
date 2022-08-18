@@ -47,13 +47,21 @@ const Header = () => {
   };
 
   useEffect(() => {
-    setFilterForm((prevState) => ({
-      ...prevState,
+    setFilterForm({
       column: getColumns[0],
       comparison: 'maior que',
       valueInput: 0,
-    }));
+    });
   }, [filterByNumericValues, getColumns]);
+
+  const deleteFilter = (columnName) => {
+    setfilterByNumericValues((prevState) => prevState
+      .filter(({ column: filterColumn }) => filterColumn !== columnName));
+  };
+
+  const clearAllFilters = () => {
+    setfilterByNumericValues([]);
+  };
 
   return (
     <>
@@ -74,7 +82,27 @@ const Header = () => {
           src={ logoPlanet }
         />
       </S.HeaderWrap>
-      <S.ActiveFilters />
+      <S.ActiveFilters>
+        {
+          filterByNumericValues
+            .map(({ column: fColumn, comparison: fComp, value }) => (
+              <S.FilterTag
+                key={ `${fColumn}${value} ` }
+                data-testid="filter"
+              >
+                <S.FilterSpan>{ fColumn }</S.FilterSpan>
+                <S.FilterSpan>{ fComp }</S.FilterSpan>
+                <S.FilterSpan>{ value }</S.FilterSpan>
+                <S.ClearButton
+                  type="button"
+                  onClick={ () => deleteFilter(fColumn) }
+                >
+                  x
+                </S.ClearButton>
+              </S.FilterTag>
+            ))
+        }
+      </S.ActiveFilters>
       <S.FilterBar>
         <S.FormLimiter>
           <S.Select
@@ -129,7 +157,7 @@ const Header = () => {
           />
           <S.Button
             type="button"
-            onClick={ applyFilter }
+            onClick={ () => applyFilter() }
             data-testid="button-filter"
           >
             Apply Filter
@@ -137,11 +165,13 @@ const Header = () => {
         </S.FormLimiter>
         <OrderBy />
         <S.ClearLimiter>
-          <S.ClearButton
+          <S.ClearAllButton
             type="button"
+            onClick={ clearAllFilters }
+            data-testid="button-remove-filters"
           >
             Clear All Filters
-          </S.ClearButton>
+          </S.ClearAllButton>
         </S.ClearLimiter>
       </S.FilterBar>
     </>

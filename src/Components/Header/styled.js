@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export const HeaderWrap = styled.header`
   display: flex;
   padding: 1rem 2rem;
+  padding-bottom: 2rem;
   justify-content: space-around;
-  margin-bottom: 1rem;
 `;
 
 export const Wrapper = styled.div`
@@ -13,8 +13,25 @@ export const Wrapper = styled.div`
   gap: 1rem;
 `;
 
+export const FilterTag = styled(Wrapper)`
+  align-items: center;
+  background: rgba(218, 168, 13, 0.4);
+  border: 1px solid rgb(218, 168, 13);
+  border-radius: 5px;
+  color: red;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  padding-right: 2rem;
+  justify-content: space-between;
+  position: relative;
+`;
+
 export const ActiveFilters = styled(Wrapper)`
-  min-height: 5.5rem;
+  min-height: 4rem;
+  padding: 1rem;
+  padding-top: 0;
+  justify-content: center;
 `;
 
 export const FilterBar = styled(Wrapper)`
@@ -52,10 +69,6 @@ export const OrderLimiter = styled(FormLimiter)`
 `;
 
 export const ClearLimiter = styled(FormLimiter)`
-  /* border-right: none;
-  border-left: 2px solid rgb(255,50,80); */
-
-
   &::before {
     content: ''
   }
@@ -71,6 +84,11 @@ export const Span = styled.span`
   font-size: 1.2rem;
   padding: 1px 2px;
   width: 100%;
+`;
+
+export const FilterSpan = styled.p`
+  text-align: center;
+  color: black;
 `;
 
 export const Input = styled.input`
@@ -173,7 +191,7 @@ export const Button = styled.button`
   }
 `;
 
-export const ClearButton = styled(Button)`
+export const ClearAllButton = styled(Button)`
   color: rgb(255,50,80);
   &:hover {
     color: red;
@@ -183,7 +201,14 @@ export const ClearButton = styled(Button)`
     transition: 0.15s;
     color: white;
   }
+`;
 
+export const ClearButton = styled(ClearAllButton)`
+  border: none;
+  padding: 0;
+  position: absolute;
+  top: 0.1rem;
+  right: 0.5rem;
 `;
 
 export const Label = styled.label`
