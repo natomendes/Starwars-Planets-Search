@@ -6,6 +6,7 @@ const Provider = ({ children }) => {
   const [planets, setPlanets] = useState([]);
   const [filterByName, setFilterByName] = useState('');
   const [filterByNumericValues, setfilterByNumericValues] = useState([]);
+  const [order, setOrder] = useState(null);
   const [columnOptions] = useState([
     'population',
     'rotation_period',
@@ -15,6 +16,8 @@ const Provider = ({ children }) => {
   ]);
 
   const contextValue = {
+    order,
+    setOrder,
     planets,
     setPlanets,
     columnOptions,

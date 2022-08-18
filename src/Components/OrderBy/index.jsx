@@ -1,13 +1,35 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import AppContext from '../../Context';
 import * as S from '../Header/styled';
 
 const OrderBy = () => {
-  const { columnOptions } = useContext(AppContext);
+  const {
+    columnOptions,
+    setOrder,
+  } = useContext(AppContext);
+  const [{
+    column,
+    sort,
+  }, setOrderForm] = useState({
+    column: 'population',
+    sort: 'ASC',
+  });
+
+  const handleInput = ({ target: { name, value } }) => {
+    setOrderForm((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   return (
     <S.OrderLimiter>
-      <S.Select>
+      <S.Select
+        data-testid="column-sort"
+        value={ column }
+        name="column"
+        onChange={ handleInput }
+      >
         {
           columnOptions
             .map((value) => (
@@ -27,8 +49,13 @@ const OrderBy = () => {
         >
           <S.Input
             type="radio"
-            name="order"
+            name="sort"
             id="asc-order"
+            data-testid="column-sort-input-asc"
+            value="ASC"
+            onChange={ handleInput }
+            checked={ sort === 'ASC' }
+
           />
           <S.Span>Ascendente</S.Span>
         </S.Label>
@@ -37,8 +64,12 @@ const OrderBy = () => {
         >
           <S.Input
             type="radio"
-            name="order"
+            name="sort"
             id="desc-order"
+            data-testid="column-sort-input-desc"
+            value="DESC"
+            onChange={ handleInput }
+            checked={ sort === 'DESC' }
           />
           <S.Span>Descendente</S.Span>
         </S.Label>
@@ -46,6 +77,11 @@ const OrderBy = () => {
 
       <S.Button
         type="button"
+        data-testid="column-sort-button"
+        onClick={ () => setOrder({
+          column,
+          sort,
+        }) }
       >
         Sort
       </S.Button>

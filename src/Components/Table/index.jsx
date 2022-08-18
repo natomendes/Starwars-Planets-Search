@@ -7,9 +7,10 @@ const Table = () => {
     planets,
     filterByName,
     filterByNumericValues,
+    order,
   } = useContext(AppContext);
 
-  const filteredPlanets = () => filterByNumericValues
+  const filteredPlanets = filterByNumericValues
     .reduce((acc, { column, comparison, value }) => {
       if (comparison === 'maior que') {
         return acc.filter((planet) => Number(planet[column]) > Number(value));
@@ -22,6 +23,23 @@ const Table = () => {
     .filter(({ name }) => name
       .toLowerCase()
       .includes(filterByName.toLowerCase()));
+
+  const sortedPlanets = () => {
+    if (!order) return filteredPlanets;
+    const { column, sort } = order;
+    const unk = [];
+    return filteredPlanets.filter((planet) => {
+      if (planet[column] === 'unknown') {
+        unk.push(planet);
+        return false;
+      }
+      return true;
+    })
+      .sort((a, b) => (sort === 'DESC'
+        ? b[column] - a[column]
+        : a[column] - b[column]))
+      .concat(unk);
+  };
 
   return (
     <s.Wrapper>
@@ -45,11 +63,22 @@ const Table = () => {
         </s.THead>
         <s.TBody>
           {
-            filteredPlanets().map((planet) => (
+            sortedPlanets().map((planet) => (
               <s.TRow key={ planet.name }>
                 {Object
                   .values(planet)
-                  .map((value, i) => <s.TD key={ i }>{ value }</s.TD>)}
+                  .map((value, i) => (
+                    i === 0
+                      ? (
+                        <s.TD
+                          key={ i }
+                          data-testid="planet-name"
+                        >
+                          { value }
+
+                        </s.TD>)
+                      : <s.TD key={ i }>{ value }</s.TD>
+                  ))}
               </s.TRow>
             ))
           }
