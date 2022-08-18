@@ -112,9 +112,9 @@ export const Input = styled.input`
     padding: 0.5rem 1rem;
   }
 
-  &[type=radio] {
+  /* &[type=radio] {
     display: none;
-  }
+  } */
 
   &[type=radio]:checked + ${Span} {
     border: 1px solid red;
