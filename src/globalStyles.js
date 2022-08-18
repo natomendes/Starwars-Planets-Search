@@ -8,6 +8,20 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
 
+  ::-webkit-scrollbar {
+    width: 10px;
+    background: rgb(0,0,0);
+  }
+
+  ::-webkit-scrollbar-track {
+    background: black;
+    width: 2px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #111;
+  }
+
   html {
     font-size: 62.5%;
   }

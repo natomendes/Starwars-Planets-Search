@@ -6,7 +6,11 @@ import AppContext from '../../Context';
 import OrderBy from '../OrderBy';
 
 const Header = () => {
-  const { columnOptions } = useContext(AppContext);
+  const {
+    columnOptions,
+    filterByName,
+    setFilterByName,
+  } = useContext(AppContext);
 
   return (
     <>
@@ -18,6 +22,9 @@ const Header = () => {
           <S.Input
             type="text"
             placeholder="Search By Name"
+            data-testid="name-filter"
+            value={ filterByName }
+            onChange={ ({ target: { value } }) => setFilterByName(value) }
           />
         </S.Wrapper>
         <S.LogoImg

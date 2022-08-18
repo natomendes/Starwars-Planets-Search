@@ -3,7 +3,12 @@ import AppContext from '../../Context';
 import * as s from './styled';
 
 const Table = () => {
-  const { planets } = useContext(AppContext);
+  const { planets, filterByName } = useContext(AppContext);
+
+  const filteredPlanets = () => planets
+    .filter(({ name }) => name
+      .toLowerCase()
+      .includes(filterByName.toLowerCase()));
   return (
     <s.Wrapper>
       <s.PlanetsTable>
@@ -26,7 +31,7 @@ const Table = () => {
         </s.THead>
         <s.TBody>
           {
-            planets.map((planet) => (
+            filteredPlanets().map((planet) => (
               <s.TRow key={ planet.name }>
                 {Object
                   .values(planet)

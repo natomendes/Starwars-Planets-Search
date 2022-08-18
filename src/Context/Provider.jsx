@@ -4,6 +4,7 @@ import AppContext from '.';
 
 const Provider = ({ children }) => {
   const [planets, setPlanets] = useState([]);
+  const [filterByName, setFilterByName] = useState('');
   const [columnOptions] = useState([
     'population',
     'rotation_period',
@@ -16,6 +17,8 @@ const Provider = ({ children }) => {
     planets,
     setPlanets,
     columnOptions,
+    filterByName,
+    setFilterByName,
   };
 
   useEffect(() => {
