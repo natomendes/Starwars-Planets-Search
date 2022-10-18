@@ -19,3 +19,11 @@ Project developed for the web developer course at [Trybe](https://www.betrybe.co
 This project was developed to fixate what I have learned about React, React Hooks and Context API.
 
 The project consists of an interface to search for information about the starwars planets.
+
+## How to test the application
+  - clone this repository to your local machine
+  - access the folder e run the following commands:
+    - npm instal
+    - npm start
+
+Obs.: To run the application you need to have node.js installed on your computer.
