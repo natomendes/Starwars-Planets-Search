@@ -8,8 +8,9 @@ O projeto consiste de uma interface para buscas de informações sobre os planet
 ## Instruções para rodar a aplicação.
 - Faça o clone da aplicação.
 - Entre na pasta onde o projeto foi clonado e execute os seguintes comandos:
-´´´npm install
-´´´npm start
+  - npm install
+  - npm start
+
 Obs.: Para conseguir rodar o projeto você precisa ter o node.js instalado em sua maquina.
 
 ---
